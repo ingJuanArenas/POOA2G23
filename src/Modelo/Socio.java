@@ -11,8 +11,6 @@ public class Socio{
     private String cedula;
     private List<Cuenta> cuentas;
 
-    
-
     public Socio(String nombre, String cedula, List<Cuenta> cuentas) {
         this.nombre = nombre;
         this.cedula = cedula;

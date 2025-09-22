@@ -9,8 +9,22 @@ import Modelo.Cuentas.CuentaAhorros;
 
 public class Cooperativa {
     private static List<Socio> socios = new ArrayList<>() ;
-    private  static  List<Cuenta> cuentas= new ArrayList<>();
+    private  static List<Cuenta> cuentas= new ArrayList<>();
 
+    public Cooperativa(List<Socio> socios, List<Cuenta> cuentas) {
+        socios = new ArrayList<>();
+        cuentas = new ArrayList<>();
+    }
+
+    public static void setSocios(List<Socio> socios) {
+        Cooperativa.socios = socios;
+    }
+    public static List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+    public static void setCuentas(List<Cuenta> cuentas) {
+        Cooperativa.cuentas = cuentas;
+    }
     public static void registrar(Socio socio){
         boolean existe = socios.stream().anyMatch(s -> s.getCedula().equals(socio.getCedula()));
         if (existe) {
@@ -33,7 +47,7 @@ public class Cooperativa {
 
     public static void sumaTotalDeSaldos() {
     double sumaTotal = cuentas.stream()
-                              .map(Cuenta::getSaldo)
+                              .map(c -> c.getSaldo())
                               .reduce(0.0, (a, b) -> a + b);
      System.out.println("La suma total de los saldos en la cooperativa es: " + sumaTotal);
 }
@@ -43,8 +57,8 @@ public static void agregarInteresCuentaAhorro(double nuevoInteres){
            .filter(c -> c instanceof CuentaAhorros)
            .map(c -> (CuentaAhorros) c)
            .forEach(c -> {
-               c.setInteres(nuevoInteres);  // 📌 Actualiza el interés
-               c.aplicarInteres();          // 📌 Aplica el cálculo con ese interés
+               c.setInteres(nuevoInteres);  
+               c.aplicarInteres();          
                System.out.println("Cuenta " + c.getNumeroCuenta() + 
                                   " nuevo saldo: " + c.getSaldo());
            });
